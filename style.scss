@@ -1,0 +1,42 @@
+.quotonic-quote-header-container, .quotonic-quote-header-container-compact {
+  padding: 4px;
+  border: 2px solid #212121;
+  background-color: #212121;
+  border-radius: 4px;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  top: 8px;
+  position: relative;
+
+  &-compact {
+    margin-left: 9ch;
+  }
+}
+
+.quotonic-quote-header {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  color: var(--channels-default);
+  margin-right: 24px;
+}
+
+.quotonic-quote-img {
+  border: 1.5px solid #212121;
+}
+
+.quotonic-quote-jumplink {
+  font-size: 12px;
+}
