@@ -1,11 +1,15 @@
 const { sleep, createElement } = require('powercord/util');
 const { Toast } = require('powercord/components');
 const { React, ReactDOM, channels } = require('powercord/webpack');
-const { desktopCapturer } = require('electron');
+const { desktopCapturer, webFrame } = require('electron');
 
 module.exports = async function (position, options) {
+  if (!position) {
+    return false;
+  }
   return new Promise(async (resolve, reject) => {
     const imageFormat = 'image/png';
+    const zoomFactor = options.originalZoomFactor;
 
     desktopCapturer.getSources({ types: [ 'window', 'screen' ] }).then(async sources => {
       for (const source of sources) {
@@ -112,6 +116,8 @@ module.exports = async function (position, options) {
               message: 'Oh no, there was an error whilst taking the screenshot for the quote! Check the console for more details.',
               alwaysDisplay: true
             });
+          } finally {
+            webFrame.setZoomFactor(zoomFactor);
           }
         }
       }
