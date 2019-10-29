@@ -40,7 +40,7 @@ module.exports = async function () {
         target.style.minWidth = !compact ? '270px' : '500px';
         target.style.width = 'min-content';
         if (messages.length > 1) {
-          if (target.parentElement !== firstMessage) {
+          if (target.parentElement.parentElement !== firstMessage) {
             firstMessage.children[1].style.display = 'none';
           }
 

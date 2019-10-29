@@ -9,6 +9,7 @@ module.exports = async function (position, options) {
   }
   return new Promise(async (resolve, reject) => {
     const imageFormat = 'image/png';
+
     const zoomFactor = options.originalZoomFactor;
 
     desktopCapturer.getSources({ types: [ 'window', 'screen' ] }).then(async sources => {
