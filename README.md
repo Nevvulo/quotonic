@@ -9,7 +9,6 @@ Advanced quote plugin for Powercord that uses screenshots to quote users and fea
 
 ## Known issues
 * Screenshots may look blurry for some users, I plan to look into fixing this very soon
-* Copy to clipboard doesn't work at this time
 * Quoting a message with content and an attachment may cause the resulting screenshot to be cropped at the top slightly
 * Quoting content near the bottom of the application window may cause the screenshot/message to become cut off
 * Quoting large amounts of content (near 2000 characters) may not fit on the page and the resulting screenshot may be cut off or sized incorrectly
