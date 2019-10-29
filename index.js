@@ -1,6 +1,7 @@
 const { Plugin } = require('powercord/entities');
 const { uninject } = require('powercord/injector');
 const { InjectionIDs } = require('./Constants');
+const { resolve } = require('path');
 
 module.exports = class Quotonic extends Plugin {
   async startPlugin () {
@@ -15,7 +16,7 @@ module.exports = class Quotonic extends Plugin {
     for (const module of Object.keys(this.MODULES)) {
       this.MODULES[module] = this.MODULES[module].bind(this);
     }
-
+    this.loadCSS(resolve(__dirname, 'style.scss'));
     this.load();
   }
 
