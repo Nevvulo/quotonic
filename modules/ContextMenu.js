@@ -1,6 +1,7 @@
 const { inject } = require('powercord/injector');
 const { ContextMenu: { Submenu } } = require('powercord/components');
 const { React, getModuleByDisplayName, getModule, channels } = require('powercord/webpack');
+const { webFrame, nativeImage, clipboard } = require('electron');
 
 module.exports = async function () {
   const _this = this;
@@ -51,6 +52,8 @@ module.exports = async function () {
         }
 
         document.body.click();
+        const zoomFactor = webFrame.getZoomFactor();
+        webFrame.setZoomFactor(1);
 
         // Get position data for element
         const rect = target.getBoundingClientRect();
@@ -58,7 +61,8 @@ module.exports = async function () {
         // Take screenshot
         const screenshot = _this.getModule('Screenshot');
         const file = await screenshot(rect, { compact,
-          messageID: msg.id });
+          messageID: msg.id,
+          originalZoomFactor: zoomFactor });
 
         // Change all modified messages back to normal
         target.style.minWidth = '';
@@ -77,7 +81,12 @@ module.exports = async function () {
             invalidEmojis: [],
             tts: false }, false);
         } else {
-          navigator.clipboard.write(file);
+          try {
+            const arrayBuffer = await file.arrayBuffer();
+            clipboard.writeImage(nativeImage.createFromBuffer(Buffer.from(arrayBuffer)));
+          } catch (e) {
+            _this.error(e, e.message);
+          }
         }
       };
       res.props.children.push(
