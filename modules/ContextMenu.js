@@ -1,14 +1,15 @@
 const { inject } = require('powercord/injector');
-const { sleep } = require('powercord/util');
 const { ContextMenu: { Submenu } } = require('powercord/components');
-const { React, getModuleByDisplayName } = require('powercord/webpack');
+const { React, getModuleByDisplayName, getModule, channels } = require('powercord/webpack');
 
 module.exports = async function () {
   const _this = this;
   const MessageContextMenu = await getModuleByDisplayName('MessageContextMenu');
+  const upload = await getModule([ 'instantBatchUpload' ], false);
 
   inject('quotonic-context-menu', MessageContextMenu.prototype, 'render', function (_, res) {
-    let { target } = this.props;
+    let { target, message: msg } = this.props;
+    let compact = false;
 
     /*
      * Set the target to the highest element until we reach `containerCozy` so that
@@ -19,6 +20,10 @@ module.exports = async function () {
         if (target.matches('.pc-containerCozy')) {
           return target;
         }
+        if (target.matches('.pc-containerCompact')) {
+          compact = true;
+          return target;
+        }
         target = target.parentElement || target.parentNode;
       } while (target !== null && target.nodeType === 1);
     };
@@ -26,15 +31,15 @@ module.exports = async function () {
 
     if (target !== document) {
       const perform = async (sendToChannel = true) => {
-        const messages = [ ...target.parentElement.parentElement.parentElement.children ]
+        const messages = [ ...(compact ? target.parentElement.parentElement : target.parentElement.parentElement.parentElement).children ]
           .filter(n => n.nodeName !== 'HR');
         const firstMessage = messages[0];
 
         // Hide any unnecessary messages for the screenshot
-        target.style.minWidth = '270px';
+        target.style.minWidth = !compact ? '270px' : '500px';
         target.style.width = 'min-content';
         if (messages.length > 1) {
-          if (target.parentElement.parentElement !== firstMessage) {
+          if (target.parentElement !== firstMessage) {
             firstMessage.children[1].style.display = 'none';
           }
 
@@ -45,15 +50,15 @@ module.exports = async function () {
           }
         }
 
+        document.body.click();
+
         // Get position data for element
         const rect = target.getBoundingClientRect();
+
         // Take screenshot
         const screenshot = _this.getModule('Screenshot');
-        screenshot(rect, sendToChannel);
-
-        document.body.click();
-        // Wait a little bit before reverting changes
-        await sleep(200);
+        const file = await screenshot(rect, { compact,
+          messageID: msg.id });
 
         // Change all modified messages back to normal
         target.style.minWidth = '';
@@ -65,6 +70,14 @@ module.exports = async function () {
               message.style.display = '';
             }
           }
+        }
+
+        if (sendToChannel) {
+          upload.upload(channels.getChannelId(), file, { content: '',
+            invalidEmojis: [],
+            tts: false }, false);
+        } else {
+          navigator.clipboard.write(file);
         }
       };
       res.props.children.push(
