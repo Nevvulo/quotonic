@@ -107,7 +107,6 @@ module.exports = async function (position, options) {
           } catch (e) {
             reject();
             this.error(e);
-            this.log('Reminder: Quotonic may not work on Mac or certain installations of Linux due to security limitations with Electron. Read more about this here: https://electronjs.org/docs/api/desktop-capturer#caveats');
             powercord.pluginManager.get('pc-announcements').sendNotice({
               id: 'quotonic',
               message: 'Oh no, there was an error whilst taking the screenshot for the quote! Check the console for more details.',
