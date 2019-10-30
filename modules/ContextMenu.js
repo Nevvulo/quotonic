@@ -1,6 +1,7 @@
 const { inject } = require('powercord/injector');
 const { ContextMenu: { Submenu } } = require('powercord/components');
 const { React, getModuleByDisplayName, getModule, channels } = require('powercord/webpack');
+const { sleep } = require('powercord/util');
 const { webFrame, nativeImage, clipboard } = require('electron');
 
 module.exports = async function () {
@@ -53,12 +54,14 @@ module.exports = async function () {
 
         document.body.click();
         const zoomFactor = webFrame.getZoomFactor();
-        webFrame.setZoomFactor(1);
+        // webFrame.setZoomFactor(1);
+        await sleep(25);
 
         // Get position data for element
         const rect = target.getBoundingClientRect();
 
         // Take screenshot
+        await sleep(25);
         const screenshot = _this.getModule('Screenshot');
         const file = await screenshot(rect, { compact,
           messageID: msg.id,
