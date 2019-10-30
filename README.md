@@ -8,10 +8,12 @@ Advanced quote plugin for Powercord that uses screenshots to quote users and fea
 ![](https://massive-legend.nevulo.xyz/idKL4KeL.gif)
 
 ## Known issues
-* Screenshots may look blurry for some users, I plan to look into fixing this very soon
 * Quoting a message with content and an attachment may cause the resulting screenshot to be cropped at the top slightly
 * Quoting content near the bottom of the application window may cause the screenshot/message to become cut off
 * Quoting large amounts of content (near 2000 characters) may not fit on the page and the resulting screenshot may be cut off or sized incorrectly
+
+## Not a bug
+* Quotes made with a zoom factor below 100% may look a little blurry - there is ultimately not a whole lot I can do about this because the elements themselves are actually smaller and therefore the resolution of the screenshot decreases
 
 ## Coming soon
 * **Instant replay**! Provide two messages from two different time periods and you'll be able to see the messages in between play as if they were happening at that moment! Fasts forwards if a message hasn't been sent for a while.
