@@ -1,7 +1,7 @@
 .quotonic-quote-header-container, .quotonic-quote-header-container-compact {
   padding: 4px;
-  border: 2px solid #212121;
-  background-color: #212121;
+  border: 2px solid var(--background-tertiary);
+  background-color: var(--background-tertiary);
   border-radius: 4px;
   width: fit-content;
   display: flex;
@@ -29,12 +29,12 @@
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  color: var(--channels-default);
+  color: var(--text-normal);
   margin-right: 24px;
 }
 
 .quotonic-quote-img {
-  border: 1.5px solid #212121;
+  border: 1.5px solid var(--background-tertiary);
   border-top-left-radius: 0px;
 }
 
