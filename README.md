@@ -1,11 +1,8 @@
 # Quotonic
 Advanced quote plugin for Powercord that uses screenshots to quote users and features instant replay
 
-## This plugin is a work in progress
-**Some things may not work as intended, or not work at all**. If you find an issue, feel free to report it on the issues page, **unless it's already been reported below**:
-
-![](https://massive-legend.nevulo.xyz/EytpDu73.png)
-![](https://massive-legend.nevulo.xyz/idKL4KeL.gif)
+## ⚠ This plugin is no longer being maintained and may not work
+**Some things may not work as intended, or not work at all**. If you find an issue, unfortunately I can't do much as I have stopped maintaining this project.
 
 ## Known issues
 * Quoting a message with content and an attachment may cause the resulting screenshot to be cropped at the top slightly
